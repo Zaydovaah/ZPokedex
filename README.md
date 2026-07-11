@@ -1,56 +1,67 @@
-# Welcome to your Expo app 👋
+# ZPokedex
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Expo React Native Pokédex built for the senior React Native technical test in `docs/requirements.md`.
 
-## Get started
+## What Is Implemented
 
-1. Install dependencies
+- Infinite Pokémon grid backed by PokéAPI.
+- Runtime API validation with Zod at the fetch boundary.
+- TanStack Query for server state and pagination.
+- Zustand runtime store for visible Pokémon IDs.
+- Visible-card battle stat simulation every 500ms.
+- AppState and route-aware pausing for the stat stream.
+- Detail route at `/pokemon/[id]` with types, base stats, moves, species text, and evolution chain.
+- MMKV detail cache for offline fallback after a successful detail load.
+- NativeWind, Expo Router, FlashList, strict TypeScript, Jest Expo, and React Native Testing Library setup.
 
-   ```bash
-   npm install
-   ```
+## Requirements
 
-2. Start the app
+- Node.js compatible with Expo SDK 56.
+- npm.
+- For native MMKV testing on device/simulator, use a development build. Web works through MMKV's web implementation.
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Setup
 
 ```bash
-npm run reset-project
+npm install
+npm run web -- --port 8081
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Change port `8081` may already be used by another project, so change it as needed.
 
-### Other setup steps
+## Verification
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npm run typecheck
+npm run lint
+npm run test
+```
 
-## Learn more
+Current verification status:
 
-To learn more about developing your project with Expo, look at the following resources:
+- `npm run typecheck`: passing.
+- `npm run lint`: passing.
+- `npm run test`: passing, 9 tests.
+- Expo web bundle: verified with HTTP `200 OK` on `http://localhost:8081`.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Architecture
 
-## Join the community
+```text
+src/app/                    Expo Router routes
+src/components/pokemon/     Grid, cards, stats, detail UI
+src/features/pokemon/api/   PokéAPI client, Zod schemas, normalizers
+src/features/pokemon/cache/ MMKV detail cache
+src/features/pokemon/hooks/ Query and stress-stream hooks
+src/features/pokemon/state/ Zustand runtime store
+src/lib/                    Query client, storage, lifecycle, fetch helpers
+```
 
-Join our community of developers creating universal apps.
+The API layer exposes normalized app types only. Raw PokéAPI shapes stay isolated in `src/features/pokemon/api`.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Offline Strategy
+
+Detail data is cached in MMKV after a successful validated network response. If the detail query fails later, the detail hook serves the cached normalized record and marks the UI source as `cache`.
+
+## Performance Strategy
+
+The grid tracks visible Pokémon via FlashList viewability callbacks. The 500ms simulation only computes stats for visible IDs, and the stat display is isolated in a memoized component so slow-changing card identity data does not need broad updates.
