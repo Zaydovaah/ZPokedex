@@ -15,7 +15,7 @@ type PokemonCardProps = {
 
 function PokemonCardComponent({ pokemon, stats }: PokemonCardProps) {
   return (
-    <Link href={`/pokemon/${pokemon.id}`} asChild>
+    <Link href={`/pokemon/${pokemon.id}`} style={styles.card} asChild>
       <Pressable style={({ pressed }) => [styles.card, pressed && styles.pressed]}>
         <View style={styles.header}>
           <Text style={styles.number}>{formatPokemonId(pokemon.id)}</Text>
@@ -44,10 +44,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#E2E8F0',
     borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: .1,
     gap: 8,
     minHeight: 214,
     padding: 12,
+    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)', 
   },
   pressed: {
     opacity: 0.72,

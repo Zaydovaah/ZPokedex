@@ -58,7 +58,7 @@ export function PokemonGrid() {
   }, [query]);
 
   if (query.isPending) {
-    return <LoadingState label="Loading Pokédex" />;
+    return <LoadingState label="Loading ZPokédex" />;
   }
 
   if (query.isError) {
