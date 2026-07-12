@@ -42,13 +42,13 @@ export const PokemonCard = memo(PokemonCardComponent);
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#E2E8F0',
+    borderColor: '#F7D9E8',
     borderRadius: 8,
-    borderWidth: .1,
+    borderWidth: 0.8,
     gap: 8,
     minHeight: 214,
     padding: 12,
-    boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.1)', 
+    boxShadow: '0px 2px 8px rgba(228, 2, 115, 0.12)',
   },
   pressed: {
     opacity: 0.72,

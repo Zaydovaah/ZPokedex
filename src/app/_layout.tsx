@@ -17,11 +17,11 @@ export default function RootLayout() {
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack
             screenOptions={{
-              contentStyle: { backgroundColor: '#F7FAFC' },
+              contentStyle: { backgroundColor: '#FFFFFF' },
               headerBackTitle: 'Grid',
               headerShadowVisible: false,
-              headerStyle: { backgroundColor: '#F7FAFC' },
-              headerTintColor: '#101820',
+              headerStyle: { backgroundColor: '#FFFFFF' },
+              headerTintColor: '#E40273',
               headerTitleStyle: { fontWeight: '900' },
             }}>
             <Stack.Screen name="index" options={{ headerShown: false }} />

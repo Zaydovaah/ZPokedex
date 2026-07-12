@@ -1,4 +1,5 @@
 import { FlashList, type ListRenderItemInfo, type ViewToken } from '@shopify/flash-list';
+import { Image } from 'expo-image';
 import { usePathname } from 'expo-router';
 import { useCallback, useMemo } from 'react';
 import { ActivityIndicator, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
@@ -13,6 +14,7 @@ import { usePokemonRuntimeStore } from '@/features/pokemon/state/pokemonRuntimeS
 import { useAppActive } from '@/lib/lifecycle/useAppActive';
 
 import { PokemonCard } from './PokemonCard';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function PokemonGrid() {
   const query = usePokemonInfiniteList();
@@ -23,6 +25,7 @@ export function PokemonGrid() {
   const visiblePokemonIds = usePokemonRuntimeStore((state) => state.visiblePokemonIds);
   const setVisiblePokemonIds = usePokemonRuntimeStore((state) => state.setVisiblePokemonIds);
 
+  const insets = useSafeAreaInsets();
   const columns = width >= 900 ? 4 : width >= 620 ? 3 : 2;
   const pokemon = useMemo(() => query.data?.pages.flatMap((page) => page.items) ?? [], [query.data]);
   const statsById = useVisiblePokemonStressStats(
@@ -87,8 +90,16 @@ export function PokemonGrid() {
         ) : null
       }
       ListHeaderComponent={
-        <View style={styles.header}>
-          <Text style={styles.eyebrow}>ZPokedex</Text>
+        <View style={[styles.header, { paddingTop: insets.top }]}>
+          <View style={styles.logoContainer}>
+            <Image
+              accessibilityLabel="Baobab logo"
+              contentFit='contain'
+              source={require('@/assets/images/logo-baobab.jpeg')}
+              style={[styles.logo]}
+            />
+            <Text style={styles.eyebrow}>ZPokedex</Text>
+          </View>
           <Text style={styles.title}>Combat Grid</Text>
           <Text style={styles.subtitle}>
             Visible Pokémon receive simulated battle stat updates every 500ms.
@@ -118,14 +129,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 18,
   },
+  logoContainer: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'flex-start'
+  },
+  logo: {
+    alignSelf: 'flex-start',
+    height: 38,
+    width: 60,
+  },
   eyebrow: {
-    color: '#E84D3D',
-    fontSize: 12,
+    color: '#E40273',
+    fontSize: 16,
     fontWeight: '900',
     textTransform: 'uppercase',
   },
   title: {
-    color: '#101820',
+    color: '#111111',
     fontSize: 34,
     fontWeight: '900',
   },

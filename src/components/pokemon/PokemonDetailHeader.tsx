@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   number: {
-    color: '#718096',
+    color: '#E40273',
     fontSize: 13,
     fontWeight: '900',
   },
@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
     gap: 6,
   },
   cache: {
-    color: '#B45309',
+    color: '#B10057',
     fontSize: 12,
     fontWeight: '900',
     textTransform: 'uppercase',

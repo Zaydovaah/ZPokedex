@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   stat: {
-    color: '#101820',
+    color: '#B10057',
     fontSize: 11,
     fontVariant: ['tabular-nums'],
     fontWeight: '800',

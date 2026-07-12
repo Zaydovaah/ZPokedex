@@ -2,8 +2,12 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import type { PokemonDetail } from '@/features/pokemon/api/pokemon.types';
 import { formatPokemonName } from '@/features/pokemon/utils/pokemonId';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function PokemonDetailSections({ detail }: { detail: PokemonDetail }) {
+
+  const insets = useSafeAreaInsets();
+  
   return (
     <View style={styles.container}>
       {detail.description ? (
@@ -137,7 +141,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   statFill: {
-    backgroundColor: '#E84D3D',
+    backgroundColor: '#E40273',
     borderRadius: 999,
     height: '100%',
   },
@@ -155,11 +159,11 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
-    backgroundColor: '#E6FFFA',
-    borderColor: '#81E6D9',
+    backgroundColor: '#FCE8F3',
+    borderColor: '#F4A7D0',
     borderRadius: 8,
     borderWidth: 1,
-    color: '#234E52',
+    color: '#B10057',
     fontSize: 13,
     fontWeight: '800',
     paddingHorizontal: 10,
