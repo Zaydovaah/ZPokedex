@@ -2,12 +2,9 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import type { PokemonDetail } from '@/features/pokemon/api/pokemon.types';
 import { formatPokemonName } from '@/features/pokemon/utils/pokemonId';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 export function PokemonDetailSections({ detail }: { detail: PokemonDetail }) {
 
-  const insets = useSafeAreaInsets();
-  
   return (
     <View style={styles.container}>
       {detail.description ? (
@@ -86,7 +83,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderWidth: 1,
     gap: 12,
-    padding: 14,
+    padding: 14
   },
   sectionTitle: {
     color: '#101820',
@@ -154,11 +151,13 @@ const styles = StyleSheet.create({
     width: 34,
   },
   chips: {
+    alignItems: 'flex-start',
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: 8,
   },
   chip: {
+    alignSelf: 'flex-start',
     backgroundColor: '#FCE8F3',
     borderColor: '#F4A7D0',
     borderRadius: 8,
@@ -166,10 +165,15 @@ const styles = StyleSheet.create({
     color: '#B10057',
     fontSize: 13,
     fontWeight: '800',
+    includeFontPadding: false,
+    lineHeight: 18,
+    minHeight: 28,
     paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingVertical: 4,
+    textAlignVertical: 'center',
   },
   move: {
+    alignSelf: 'flex-start',
     backgroundColor: '#F7FAFC',
     borderColor: '#E2E8F0',
     borderRadius: 8,
@@ -177,7 +181,11 @@ const styles = StyleSheet.create({
     color: '#2D3748',
     fontSize: 12,
     fontWeight: '700',
+    includeFontPadding: false,
+    lineHeight: 17,
+    minHeight: 28,
     paddingHorizontal: 10,
-    paddingVertical: 7,
+    paddingVertical: 5,
+    textAlignVertical: 'center',
   },
 });
