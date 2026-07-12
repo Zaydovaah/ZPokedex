@@ -42,3 +42,9 @@ example
 # generated native folders
 /ios
 /android
+
+# local project docs and planning artifacts
+/docs/planning.md
+/docs/requirements.md
+/docs/project-explainer.md
+/docs/project-explainer-fr.md
