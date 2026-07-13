@@ -38,5 +38,6 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     paddingHorizontal: 8,
     paddingVertical: 4,
+    textAlignVertical: 'center',
   },
 });
